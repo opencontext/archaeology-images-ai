@@ -25,6 +25,7 @@ test_data.to_csv('testing_metadata.csv', index=False)
 os.makedirs('training', exist_ok=True)
 
 # Download images and save into training folder
+# this handles the repeated 'default.jpg' image name
 for _, row in train_data.iterrows():
     url = row['image_file__uri']
     
@@ -51,3 +52,29 @@ for _, row in train_data.iterrows():
 
         # Wait for .1 second before the next request to reduce the load on server
         time.sleep(.1)
+
+# Download images and save into training folder
+# this bit grabbed all the other filenames that were unique
+# and whose filepaths were not predictable, and so the code
+# above missed.
+#
+#for _, row in train_data.iterrows():
+#    url = row['image_file__uri']
+#    if url.endswith(".jpg"):
+#        try:
+#            response = requests.get(url, timeout=5)
+#            response.raise_for_status()
+#        except (requests.exceptions.RequestException, Timeout):
+#            print('An error occurred while fetching: ', url)
+#            continue
+#
+#        file_path = os.path.join('training', os.path.basename(url))
+#
+#        with open(file_path, 'wb') as img_file:
+#            img_file.write(response.content)
+#
+#        # Sleep for 1 second before fetching the next image to reduce load on server
+#        time.sleep(1)
+#
+## I ran this whole thing twice and then merged the results because
+## I'm just not smart enough to handle everything once.
