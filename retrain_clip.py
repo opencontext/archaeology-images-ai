@@ -36,7 +36,7 @@ class image_title_dataset():
         except Exception as e:
             print(f"Unable to open image at {self.image_path[idx]} due to error : {e}")
             return None
-        title = clip.tokenize([self.list_txt[idx]])
+        title = clip.tokenize([self.list_txt[idx]]).squeeze(0)
         return image, title
 
 # use your own data
@@ -56,7 +56,7 @@ for item in input_data:
     list_txt.append(time_range)
 
 dataset = image_title_dataset(list_image_path, list_txt)
-train_dataloader = DataLoader(dataset, batch_size=1000, shuffle=True) #Define your own dataloader
+train_dataloader = DataLoader(dataset, batch_size=50, shuffle=True) #Define your own dataloader
 
 model = model.to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=5e-5, betas=(0.9,0.98), eps=1e-6, weight_decay=0.2)
