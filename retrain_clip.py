@@ -36,7 +36,7 @@ class image_title_dataset():
         except Exception as e:
             print(f"Unable to open image at {self.image_path[idx]} due to error : {e}")
             return None
-        title = clip.tokenize(self.list_txt[idx])
+        title = clip.tokenize([self.list_txt[idx]])
         return image, title
 
 # use your own data
