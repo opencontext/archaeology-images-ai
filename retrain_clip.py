@@ -16,7 +16,8 @@ with open(json_path, 'r') as f:
     input_data = json.load(f)
 
 # Load the CLIP model and processor
-device = "cuda:0" if torch.cuda.is_available() else "cpu" 
+#device = "cuda:0" if torch.cuda.is_available() else "cpu" 
+device = torch.device("mps")# if torch.cuda.is_available() else "cpu")
 model, preprocess = clip.load('ViT-B/32', jit=False)
 
 # Define a custom dataset
@@ -84,3 +85,6 @@ for epoch in range(num_epochs):
         optimizer.step()
 
         pbar.set_description(f"Epoch {epoch}/{num_epochs}, Loss: {total_loss.item():.4f}")
+
+#save model after training
+torch.save(model.state_dict(), 'retrained_clip_model.ckpt')
