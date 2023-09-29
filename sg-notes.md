@@ -106,7 +106,7 @@ So... I need to test on a much broader scale.
 
 |phrase|top image|correct?|archae_ai score|vanilla clip score|
 |------|---------|--------|---------------|------------------|
-|coarseware|1||yes|0.2408098776503917|0.2408098776503917|
+|coarseware|1|yes|0.2408098776503917|0.2408098776503917|
 
 ...at which point I stop and say, oh crap, it was _always_ just using CLIP. So my understanding of what I needed to change up was wrong.
 
