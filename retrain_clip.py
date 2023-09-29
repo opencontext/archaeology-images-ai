@@ -9,6 +9,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 import clip
 
+
 json_path = 'training_set.json'
 image_path = 'training'
 
@@ -86,5 +87,10 @@ for epoch in range(num_epochs):
 
         pbar.set_description(f"Epoch {epoch}/{num_epochs}, Loss: {total_loss.item():.4f}")
 
-#save model after training
-torch.save(model.state_dict(), 'retrained_clip_model.ckpt')
+#save model after training https://github.com/openai/CLIP/issues/83
+torch.save({
+        'epoch': epoch,
+        'model_state_dict': model.state_dict(),
+        'optimizer_state_dict': optimizer.state_dict(),
+        'loss': total_loss,
+        }, f"model_checkpoint/archae-ai.pt") #just change to your preferred folder/filename

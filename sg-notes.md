@@ -56,7 +56,7 @@ Model trains, saves. I think I have m1 gpu properly used; training with cpu took
 
 - [ ] figure out how to get llm-clip to use this model
 
-I have saved the model, modifying retrain_clip.py to not use a file extension. 
+I have saved the model, but I'm not sure if I'm saving everything that needs to be saved.
 
 I find where clip stores its model information using `dirname "$(llm logs path)"` (see [LLM documentation](https://llm.datasette.io/en/stable/other-models.html))
 
