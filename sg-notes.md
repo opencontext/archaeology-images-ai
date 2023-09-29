@@ -106,7 +106,7 @@ So... I need to test on a much broader scale.
 
 ## Redo from start?
 
-This [notebook](https://colab.research.google.com/github/arampacha/CLIP-rsicd/blob/master/nbs/Finetuning_CLIP_with_HF_and_jax.ipynb) looks approachable. Just have to reshape the caption data.
+- [ ] This [notebook](https://colab.research.google.com/github/arampacha/CLIP-rsicd/blob/master/nbs/Finetuning_CLIP_with_HF_and_jax.ipynb) looked approachable. However Jax library is now incompatible with Colab. Still investigating.
 
 
 ### Archae_AI versus Vanilla Clip:
