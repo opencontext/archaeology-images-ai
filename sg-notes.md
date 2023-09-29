@@ -54,6 +54,8 @@ Model trains, saves. I think I have m1 gpu properly used; training with cpu took
 
 ## sept 29
 
+- [x] simplifyjson.py to make a json file with just filename and all available data as lines in a caption
+- [x] which simplifies a bit of retrain_clip.py. And speeds it up to about 1.5 minutes per epoch.
 - [ ] figure out how to get llm-clip to use this model
 
 I have saved the model, but I'm not sure if I'm saving everything that needs to be saved.
@@ -101,6 +103,11 @@ it returns the terracotta fragment of figurine at 0.24 and the actual bucchero a
 So... I *think* I've successfully fine tuned the model. But to be sure, I'll need to do the test again, but generate the embeddings from the standard CLIP model.
 
 So... I need to test on a much broader scale.
+
+## Redo from start?
+
+This [notebook](https://colab.research.google.com/github/arampacha/CLIP-rsicd/blob/master/nbs/Finetuning_CLIP_with_HF_and_jax.ipynb) looks approachable. Just have to reshape the caption data.
+
 
 ### Archae_AI versus Vanilla Clip:
 

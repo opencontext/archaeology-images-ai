@@ -10,7 +10,7 @@ from torch.utils.data import DataLoader
 import clip
 
 
-json_path = 'training_set.json'
+json_path = 'simple.json'
 image_path = 'training'
 
 with open(json_path, 'r') as f:
@@ -46,16 +46,13 @@ class image_title_dataset():
 list_image_path = []
 list_txt = []
 for item in input_data:
-  if 'image_path' in item and 'project_specific_descriptions' in item and 'time_range' in item:
-    img_path = os.path.join('training', item['image_path'].split('/')[-1])
-    caption = item['project_specific_descriptions'][:40]
-    time_range = item['time_range'][:40]
+  if 'filename' in item and 'captions' in item:
+    img_path = os.path.join('training', item['filename'].split('/')[-1])
+    caption = item['captions'][:40]
     # appending path to image then the corresponding caption
     list_image_path.append(img_path)
     list_txt.append(caption)
-    # appending path to the same image again then the corresponding time range
-    list_image_path.append(img_path)
-    list_txt.append(time_range)
+    
 
 dataset = image_title_dataset(list_image_path, list_txt)
 train_dataloader = DataLoader(dataset, batch_size=50, shuffle=True) #Define your own dataloader
