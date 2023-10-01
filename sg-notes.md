@@ -32,7 +32,7 @@ n = 1566
 - [x] make sure filenames are present in the json; if not, add them. see [add_file_paths_to_json.py](add_file_paths_to_json.py). Should've done this first.
 - [x] create a json file with just the info for the images downloaded. See [create_training_json.py](create_training_json.py)
 - [x] retrain clip using the guide & code from above
-- [ ] make this retrained clip model available to [llm-clip](https://simonwillison.net/2023/Sep/12/llm-clip-and-chat/)
+- [x] make this retrained clip model available to [llm-clip](https://simonwillison.net/2023/Sep/12/llm-clip-and-chat/)
 
 ### problems and thoughts 
  - ~~some files end in filenames that will make it easy more or less to associate the image with the metadata. But there are numerous images that end with 'default.jpg'. So need to rename these consistently so that I can make the connection with the metadata~~
@@ -156,6 +156,33 @@ $ llm similar photos -c 'coarseware'
 now... they're not _right_; 19820081e is the piece of coarseware or terracotta. My finetuned model I think didn't have enough data, and if you look at the loss values, well, it looks like it got stuck.
 
 But progress!
+
+...further investigation - the loss values when the model trains plateau quite quickly. So I'm probably not using enough data here. GPT has sensible suggestions:
+
+```
+If the loss plateaus very quickly during the training process, it may indicate a few potential issues with the training data or model:
+
+1. **Insufficient Data**: You may not have enough training data. Deep learning models typically need a lot of data to learn effectively. If your dataset is small, your model may not have enough examples to learn from, causing it to plateau quickly.
+
+2. **Lack of Diversity in Data**: If your data does not have enough variety, the model might not learn effectively. It's important that your training data has adequate representation of the different classes or features you're trying to predict.
+
+3. **Complexity of the Model**: The model may not be complex enough to learn the underlying patterns in the data. This is usually referred to as underfitting. You could try increasing model complexity by adding more layers or nodes.
+
+4. **Learning Rate**: If the learning rate is too high, the loss may quickly decrease and then oscillate or plateau because the steps in the gradient descent are too large and it is unable to find the minimum.
+
+5. **Saturated features**: Features used do not carry enough information to make predictions more accurate. This could happen if you've used a lot of irrelevant features or if there's a lot of redundant data.
+
+6. **Data Preprocessing**: There may be issues with how the data was preprocessed — outliers, incorrect labels, data leaks, normalization issues, etc.
+
+In each of these cases, it would be beneficial to investigate your data and model to identify why the model performance is plateauing, possibly incorporating techniques like data augmentation, changing learning rate, regularization, adding dropout, etc. to overcome this issue.
+```
+
+### to do
+
+- [ ] augment image data by translating, reflecting, rotating images. 
+- [ ] tie the metadata json to those images
+- [ ] use a whole shittonne more data
+- [ ] maybe pay for compute time to retrain
 
 
 ## gpt the great leveller
