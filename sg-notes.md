@@ -120,8 +120,9 @@ Back to the drawing board. Well, maybe part of the problem is I should upload th
 By jove, I think I've got it...
 
 - [x] This [notebook](https://colab.research.google.com/drive/1v2tnk5dcWfZr7Gg4mBP89HSjAvrBtdMo) will retrain the model; I will tidy it up.
-- [x] Download the pytorch_model.bin
-- [x] Create a folder on your machine that matches the structure of this: https://huggingface.co/sentence-transformers/clip-ViT-B-32/tree/main and put the pytorch_model.bin file inside the `0_CLIPModel` folder. You _need_ all those .json files. And since you're not otherwise futzing with the basic CLIP-ness, it should be ok.
+- [x] Zip then download the folder ('archae_ai') with pytorch_model.bin and config.json
+- [x] Create a folder on your machine - mine is called 'retrained-model' and copy the files and subfolders from this: https://huggingface.co/sentence-transformers/clip-ViT-B-32/tree/main . You _need_ all those .json files. And since you're not otherwise futzing with the basic CLIP-ness, it should be ok.
+- [x] Unzip the 'archae_ai' folder and move the config. json and pytorch_model.bin files inside the `0_CLIPModel` subfolder. 
 - [x] find the llm-clip.py file in your environment. Change
 
 ```
