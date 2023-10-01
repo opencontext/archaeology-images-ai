@@ -56,7 +56,7 @@ Model trains, saves. I think I have m1 gpu properly used; training with cpu took
 
 - [x] simplifyjson.py to make a json file with just filename and all available data as lines in a caption
 - [x] which simplifies a bit of retrain_clip.py. And speeds it up to about 1.5 minutes per epoch.
-- [ ] figure out how to get llm-clip to use this model
+- [x] figure out how to get llm-clip to use this model
 
 I have saved the model, but I'm not sure if I'm saving everything that needs to be saved.
 
@@ -104,10 +104,6 @@ So... I *think* I've successfully fine tuned the model. But to be sure, I'll nee
 
 So... I need to test on a much broader scale.
 
-## Redo from start?
-
-- [ ] This [notebook](https://colab.research.google.com/github/arampacha/CLIP-rsicd/blob/master/nbs/Finetuning_CLIP_with_HF_and_jax.ipynb) looked approachable. However Jax library is now incompatible with Colab. Still investigating.
-
 
 ### Archae_AI versus Vanilla Clip:
 
@@ -118,6 +114,48 @@ So... I need to test on a much broader scale.
 ...at which point I stop and say, oh crap, it was _always_ just using CLIP. So my understanding of what I needed to change up was wrong.
 
 Back to the drawing board. Well, maybe part of the problem is I should upload the model to my huggingface space so that I can load/call/use it properly instead of rolling about trying to do what can probably be done but I don't know how.
+
+## Sept 30
+
+By jove, I think I've got it...
+
+- [x] This [notebook](https://colab.research.google.com/drive/1v2tnk5dcWfZr7Gg4mBP89HSjAvrBtdMo) will retrain the model; I will tidy it up.
+- [x] Download the pytorch_model.bin
+- [x] Create a folder on your machine that matches the structure of this: https://huggingface.co/sentence-transformers/clip-ViT-B-32/tree/main and put the pytorch_model.bin file inside the `0_CLIPModel` folder. You _need_ all those .json files. And since you're not otherwise futzing with the basic CLIP-ness, it should be ok.
+- [x] find the llm-clip.py file in your environment. Change
+
+```
+if self._model is None:
+   self._model = SentenceTransformer('clip-ViT-B-32')
+```
+to point to your new model, like so: 
+
+```
+    def embed_batch(self, items):
+        # Embeds a mix of text strings and binary images
+        if self._model is None:
+            self._model = SentenceTransformer('/Users/shawngraham/Documents/code-experiments/llm-commandline/archaeology-images-ai/retrained-model')
+ ```
+
+Then, at the command line,
+```bash
+$ llm embed-multi photos --files testing/ '*.jpg' --binary -m clip
+```
+
+will create new embeddings from your retrained model!!!
+
+...and how do I know it's using the retrained model? The results that it returns are completely different:
+
+```
+$ llm similar photos -c 'coarseware'                              
+{"id": "opencontext-24-19820008illi.jpg", "score": 0.10605615481948473, "content": null, "metadata": null}
+{"id": "opencontext-24-20070123b.jpg", "score": 0.10564941635017805, "content": null, "metadata": null}
+{"id": "opencontext-24-19820081e.jpg", "score": 0.10531343752578372, "content": null, "metadata": null}
+```
+
+now... they're not _right_; 19820081e is the piece of coarseware or terracotta. My finetuned model I think didn't have enough data, and if you look at the loss values, well, it looks like it got stuck.
+
+But progress!
 
 
 ## gpt the great leveller
