@@ -186,7 +186,7 @@ In each of these cases, it would be beneficial to investigate your data and mode
 
 ## Oct 2
 
-Wrote a quick script to augment each image by rotating 90, 180, flipping horizontal and flipping vertical. This gives us 6942 images to work with. Same script writes the new image filename to the json file and copies the original caption data to it. But it should maybe flip, rotate at random...
+Wrote a quick script to augment each image by rotating ~~90, 180, flipping horizontal and flipping vertical~~ rotating at random, then horizontal/vertical flip. This gives us nearly 6000 images to work with. Same script writes the new image filename to the json file and copies the original caption data to it. But it should maybe flip, rotate at random...
 
 Let's start training and see what happens... I'm assuming that if the loss now drops gradually I'll have a better model happening.
 
