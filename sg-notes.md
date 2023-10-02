@@ -180,16 +180,23 @@ In each of these cases, it would be beneficial to investigate your data and mode
 
 ### to do
 
-- [ ] augment image data by translating, reflecting, rotating images. 
-- [ ] tie the metadata json to those images
+
 - [ ] use a whole shittonne more data
 - [ ] maybe pay for compute time to retrain
 
 ## Oct 2
 
-Wrote a quick script to augment each image by rotating 90, 180, flipping horizontal and flipping vertical. This gives us 6942 images to work with. Same script writes the new image filename to the json file and copies the original caption data to it.
+Wrote a quick script to augment each image by rotating 90, 180, flipping horizontal and flipping vertical. This gives us 6942 images to work with. Same script writes the new image filename to the json file and copies the original caption data to it. But it should maybe flip, rotate at random...
 
 Let's start training and see what happens... I'm assuming that if the loss now drops gradually I'll have a better model happening.
+
+I wonder if my attempt at speeding up the code by using gradient accumulation steps is causing me grief.
+
+- [x] augment image data by translating, reflecting, rotating, resizing images. 
+- [x] tie the metadata json to those images
+- [ ] run a quick training iteration to see if the loss descends
+
+Resizing images was done naively, not preserving aspect ratio, since when I _did_ try to preserve aspect ratio, I would introduce great big black bars across the top or sides which clearly are going to frig up where those images would lie in the embedding space.
 
 ## gpt the great leveller
 
