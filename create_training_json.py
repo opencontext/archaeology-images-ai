@@ -2,7 +2,7 @@ import os
 import json
 
 # Load the JSON file
-with open('output.json') as file:
+with open('step1-output.json') as file:
     data = json.load(file)
 
 # Get a list of all files in the 'training' directory

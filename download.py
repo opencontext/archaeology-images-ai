@@ -14,7 +14,7 @@ image_data = data[data['image_file__uri'].notna()]
 image_data = image_data.reset_index(drop=True)
 
 # Randomly select 2% for training, rest for testing
-train_data = image_data.sample(frac=0.02, random_state=42)
+train_data = image_data.sample(frac=0.10, random_state=42)
 test_data = image_data.drop(train_data.index)
 
 # Save metadata as csv
@@ -22,14 +22,14 @@ train_data.to_csv('training_metadata.csv', index=False)
 test_data.to_csv('testing_metadata.csv', index=False)
 
 # Create training folder if it doesn't exist
-os.makedirs('training', exist_ok=True)
+os.makedirs('training10', exist_ok=True)
 
 # Download images and save into training folder
 # this handles the repeated 'default.jpg' image name
 for _, row in train_data.iterrows():
     url = row['image_file__uri']
     
-    if url.endswith(".jpg"):
+    if url.endswith("default.jpg"):
         try: 
             response = requests.get(url, timeout=5)
             response.raise_for_status()
@@ -37,10 +37,13 @@ for _, row in train_data.iterrows():
             # Extract the name from the URL
             try:
                 file_name = url.split("/iiif/")[1].split("/full/")[0] + '.jpg'
-                file_path = os.path.join('training', file_name)
+                file_path = os.path.join('training10', file_name)
                 
             except IndexError:
-                print(f"Skipping URL due to parsing problem: {url}")
+                print(f"Ok, not an iif url: {url}")
+                file_path = os.path.join('training10', os.path.basename(url))
+                with open(file_path, 'wb') as img_file:
+                    img_file.write(response.content)
                 continue
 
             with open(file_path, 'wb') as img_file:

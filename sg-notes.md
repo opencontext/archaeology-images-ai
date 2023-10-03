@@ -213,6 +213,17 @@ Also, I think my augmenting data schtick screwed things up. When I could get a r
 
 Ok, so augmenting the data with flips and rotations and so on didn't do me much good. So... what to do, what to do...
 
+MOAR DATA.
+
+1. Ok, so dial up training set to 10% of the images. modified 'download.py' to grab 10% at random, 7k ish.
+2. then I create the json file with the relevant info using 'add_file_paths_to_json.py'
+3. then 'create_training_json.py'. This two-step was necessary because initially I did things in two steps, but maybe I can merge 'em together.
+4. then simplifyjson.json to create the metadata json for the retraining step (this one filenames, captions)
+
+(...i wonder if I'd get better results if I removed backgrounds with eg https://github.com/nadermx/backgroundremover . made script using it, 'remove-bg.py'. It works well on objects; the handdrawn sketches, not so much. Uses neural net to identify foreground/background. On 1000 pics took about an hour. Eventually, trained a model, but the model always returned the images in the same order, even though scores changed given a prompt, the same order always obtained).
+
+Anyway, downloaded 5095 photos, or 7 percent of the data that Eric provided (was aiming for 10% but there were download errors; in the retrain script those missing files get flagged). Ran them through the pipeline. Now training.
+
 
 Oh, pro-tip: the eventual model folder with the pytorch_model.bin file and all the config.json - upload to huggingface using **chrome**. There's a bug in firefox that prevents it from uploading. Once on huggingface, it should be possible to distribute the llm-archae-clip plugin for llm such that it downloads the model from my huggingface space on first run.
 

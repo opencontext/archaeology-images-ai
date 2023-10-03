@@ -28,5 +28,5 @@ for item in data:
         item["image_path"] = None
 
 # Write the updated data to a new JSON file
-with open('output.json', 'w') as file:
+with open('step1-output.json', 'w') as file:
     json.dump(data, file)
