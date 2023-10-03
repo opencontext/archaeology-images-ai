@@ -27,15 +27,15 @@ for item in data:
         modified_img = mod_func(original_img)
 
         # Resize image
-        resized_img = modified_img.resize((300, 300)) #not preserving aspect ratio, but when we do, great big black bands!
-        resized_orig = original_img.resize((300, 300))
+        #resized_img = modified_img.resize((300, 300)) #not preserving aspect ratio, but when we do, great big black bands!
+        #resized_orig = original_img.resize((300, 300))
 
         # Create new filename
         new_filename = f'{filename.split(".")[0]}_{mod_name}.jpg'
 
         # Save modified image
         resized_img.save(f'{new_filename}')
-        resized_orig.save(filename)
+        #resized_orig.save(filename)
 
         # Add new data to the json data
         new_item = {'filename': new_filename, 'captions': captions}

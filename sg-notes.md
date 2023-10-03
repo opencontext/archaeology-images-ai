@@ -194,9 +194,29 @@ I wonder if my attempt at speeding up the code by using gradient accumulation st
 
 - [x] augment image data by translating, reflecting, rotating, resizing images. 
 - [x] tie the metadata json to those images
-- [ ] run a quick training iteration to see if the loss descends
+
 
 Resizing images was done naively, not preserving aspect ratio, since when I _did_ try to preserve aspect ratio, I would introduce great big black bars across the top or sides which clearly are going to frig up where those images would lie in the embedding space.
+
+- [ ] run a quick training iteration to see if the loss descends
+
+_...edit some time later..._ I managed to bork everything. Best code is now retrain_clip.py which also has moved the functions to load the datasets to their own file, and rejigged things to call things properly. Currently started running on the augmented images at 10.22 pm. `caffeinate -w` baby!
+
+
+## oct 3
+
+I think I've got clip from openai and clip from huggingface fighting it out in the same environment, by mistake, and the two don't play nice together. ARRRGH.
+
+Also, I think my augmenting data schtick screwed things up. When I could get a round of training completed, the loss always returned the same thing. Gone back to the original pics, fixed training code, and I think it works. The loss is decreasing smoothly, at any rate.
+
+- [x] run a quick training iteration to see if the loss descends
+
+Ok, so augmenting the data with flips and rotations and so on didn't do me much good. So... what to do, what to do...
+
+
+Oh, pro-tip: the eventual model folder with the pytorch_model.bin file and all the config.json - upload to huggingface using **chrome**. There's a bug in firefox that prevents it from uploading. Once on huggingface, it should be possible to distribute the llm-archae-clip plugin for llm such that it downloads the model from my huggingface space on first run.
+
+
 
 ## gpt the great leveller
 
