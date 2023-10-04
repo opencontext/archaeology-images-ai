@@ -28,12 +28,17 @@ def load_image(row):
 df_parquet = pd.DataFrame()
 reader = pd.read_csv('csv_data/artifact_images_w_descriptions.csv', chunksize=batch_size)
 
+chunks = []  # List to keep batches
+
 for chunk in reader:
     chunk['image'] = chunk.apply(load_image, axis=1)
     chunk['captions'] = chunk[['item__earliest', 'item__latest', 'context___1', 'context___2', 'context___3',
                                'Consists of (Label) [https://erlangen-crm.org/current/P45_consists_of]', 
                                'project_specific_descriptions']].apply(lambda x: ' '.join(x.dropna().astype(str)), axis=1)
-    df_parquet = df_parquet.append(chunk, ignore_index=True)
+    chunks.append(chunk)
+
+# Concatenate all chunks into a single DataFrame
+df_parquet = pd.concat(chunks, ignore_index=True)
 
 table = pa.Table.from_pandas(df_parquet)
 pq.write_table(table, 'data.parquet')
