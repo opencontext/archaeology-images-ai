@@ -15,11 +15,16 @@ class ImageCaptionDataset(Dataset):
         self.image_to_caption = {}
         self.images = []
         with open(self.caption_file, "r") as fcap:
+            next(fcap)  # Add this line to skip the header
             for line in fcap:
-                image_id, caption = line.strip().split('\t')
-                if os.path.exists(os.path.join(self.image_folder, image_id + ".jpg")):
-                    self.image_to_caption[image_id] = caption
-                    self.images.append(image_id)
+                try:
+                    image_id, caption = line.strip().split('\t')
+                    if os.path.exists(os.path.join(self.image_folder, image_id)):
+                        self.image_to_caption[image_id] = caption
+                        self.images.append(image_id)
+                except ValueError as e:
+                    print("ERROR on line: ", line)
+                    print("ERROR: ",str(e))
 
     def __len__(self):
         return len(self.image_to_caption)

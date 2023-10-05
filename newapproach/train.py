@@ -83,7 +83,7 @@ args = parser.parse_args()
 
 config_file = args.config_file
 with open(config_file, "r") as fcfg:
-    config = yaml.load(fcfg)
+    config = yaml.safe_load(fcfg)
 print(config)
 
 model_dir = os.path.join(config["models_dir"], 
@@ -107,13 +107,12 @@ train_sampler = RandomSampler(train_ds,
                               num_samples=config["train_sample_size"])
 train_dl = DataLoader(train_ds, 
                       batch_size=config["train_batch_size"], 
-                    #   shuffle=True, 
                       sampler=train_sampler,
-                      num_workers=mp.cpu_count() - 1, 
+                      num_workers=0, 
                       collate_fn=collator)
 validation_dl = DataLoader(validation_ds,
                            batch_size=config["validation_batch_size"],
-                           num_workers=mp.cpu_count() - 1,
+                           num_workers=0,
                            collate_fn=collator)
 
 optimizer = AdamW(model.parameters(), 
