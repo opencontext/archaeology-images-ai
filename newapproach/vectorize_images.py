@@ -50,8 +50,8 @@ datasets = {
         os.path.join(IMAGE_DATA_DIR, "validation", "ocvalidation"),
         os.path.join(IMAGE_DATA_DIR, "validation", "ocvalidation-Captions.csv")),
     "test": ImageCaptionDataset(
-        os.path.join(IMAGE_DATA_DIR, "unseen", "octest"),
-        os.path.join(IMAGE_DATA_DIR, "unseen", "octest-captions.txt"))
+        os.path.join(IMAGE_DATA_DIR, "test", "octest"),
+        os.path.join(IMAGE_DATA_DIR, "test", "octest-captions.txt"))
 }
 for split, dataset in datasets.items():
     test_dl = DataLoader(dataset, 
