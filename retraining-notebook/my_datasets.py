@@ -10,7 +10,7 @@ class image_title_dataset():
         #self.transform = Compose([ToTensor()])
         self.transform = Compose([Resize((300, 300)), ToTensor()])
         #self.transform = Compose([lambda img: F.resize(img, (300, 300)), ToTensor()])
-        
+   
     def __len__(self):
         return len(self.list_txt)
 
