@@ -11,6 +11,11 @@ from torch.utils.data import DataLoader
 
 from clip_dataset import ImageCaptionDataset, ImageCaptionCollator
 
+# Use a pipeline as a high-level helper
+from transformers import pipeline
+
+pipe = pipeline("zero-shot-image-classification", model="openai/clip-vit-base-patch32")
+
 OPENAI_CLIP_HF_HUBID = "openai/clip-vit-base-patch32"
 IMAGE_DATA_DIR = "ourimages"
 BATCH_SIZE = 64
