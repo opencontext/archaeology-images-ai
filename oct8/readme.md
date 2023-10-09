@@ -5,3 +5,5 @@ And of course, they had: https://github.com/damian0815/finetune-clip-huggingface
 But I've learned alot about reshaping json...
 
 If you're looking at the hot mess this repo is, the notebook in here is the one you want.
+
+oh, and 'testing.ipynb' has some neat functions in it to query llm-clip and retrieve images, metadata, and link back to opencontext. It also has some instructions on where to put the retrained model and get it working with llm-clip.
