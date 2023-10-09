@@ -225,7 +225,9 @@ MOAR DATA.
 Anyway, downloaded 5095 photos, or 7 percent of the data that Eric provided (was aiming for 10% but there were download errors; in the retrain script those missing files get flagged). Ran them through the pipeline. Now training.
 
 
-Oh, pro-tip: the eventual model folder with the pytorch_model.bin file and all the config.json - upload to huggingface using **chrome**. There's a bug in firefox that prevents it from uploading. Once on huggingface, it should be possible to distribute the llm-archae-clip plugin for llm such that it downloads the model from my huggingface space on first run.
+## Oct 8
+
+Sometimes, you just need to walk away. Don't reinvent the wheel. Just search Github instead. Anyway, see the [oct8](oct8) notebook for a workflow that ....works! But to get your model working with llm-clip, see the notes above about where to plunk the trained model in.
 
 
 
