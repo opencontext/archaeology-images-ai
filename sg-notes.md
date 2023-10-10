@@ -222,31 +222,15 @@ MOAR DATA.
 
 (...i wonder if I'd get better results if I removed backgrounds with eg https://github.com/nadermx/backgroundremover . made script using it, 'remove-bg.py'. It works well on objects; the handdrawn sketches, not so much. Uses neural net to identify foreground/background. On 1000 pics took about an hour. Eventually, trained a model, but the model always returned the images in the same order, even though scores changed given a prompt, the same order always obtained).
 
-Anyway, downloaded 5095 photos, or 7 percent of the data that Eric provided (was aiming for 10% but there were download errors; in the retrain script those missing files get flagged). Ran them through the pipeline. Now training.
+Anyway, downloaded 5095 photos, or 7 percent of the data that Eric provided (was aiming for 10% but there were download errors; in the retrain script those missing files get flagged; created 'checkfilenames.py' which assumes that the training folder and simple.json have been moved into the retraining-notebook. Deletes any missing files' filenames,captions from the json). Ran them through the pipeline. Now training.
 
 
-## Oct 8
+Oh, pro-tip: the eventual model folder with the pytorch_model.bin file and all the config.json - upload to huggingface using **chrome**. There's a bug in firefox that prevents it from uploading. Once on huggingface, it should be possible to distribute the llm-archae-clip plugin for llm such that it downloads the model from my huggingface space on first run.
+- [ ] figure out how to make things huggingfaceable
 
-Sometimes, you just need to walk away. Don't reinvent the wheel. Just search Github instead. Anyway, see the [oct8](oct8) notebook for a workflow that ....works! But to get your model working with llm-clip, see the notes above about where to plunk the trained model in.
+## oct 8
 
+Ok, prior to this day, everything went completely sideways. Memory leakages maybe? The whole thing just ... died ... and I never could figure out why my training loss always got stuck the way it did. Started over, found some better materials to study and work with (detailed here - https://carleton.ca/xlab/2023/archaeclip-or-building-a-visual-search-engine-for-archaeology/).
 
-
-## gpt the great leveller
-
-I (SG) am not the world's best coder. I'm pretty crap, truth be told, and to fully explore and understand the code that Shashank Vats wrote I asked gpt4 to explain different elements of it to me when I needed to, and followed that up with very careful tweaking to see if what I thought I should be doing would actually work. I ran into a bit of trouble adding more than just caption/description data (we've got so much archaeological info!) and I used a combination of combing stack overflow and passing error messages to GPT4 to solve. What it came up with is in lines 47 to 57 of retrain_clip.py, which is pretty close to the original. Its explanation:
-
-```
-This double appending is creating pairs of images and their corresponding texts (captions and time ranges) for training. 
-
-Here's the idea: each image is associated with two pieces of textual information -- a caption and a time range. For this reason, each image is appended twice to the `list_image_path` -- once for its caption and once for its time range. The corresponding pieces of text (the caption and the time range) are appended to `list_txt`. 
-
-So, for each image, you will have two (image, text) pairs. For instance:
-
-- Pair 1: (Image1, Caption1)
-- Pair 2: (Image1, TimeRange1)
-
-This can be useful when training models like CLIP, where each image paired with the corresponding text can represent a training sample. Both pieces of text — the caption and the time range — are considered vital contextual information for the image, and having them both in training data should help improve the model performance.
-
-Remember, in this case your labels (if any) need also to be duplicated or have the same structure for continuity.
-```
+So if you've read this document to this point... it's a pretty good reflection of all the dead ends I went down towards something that acutally works. Go see the materials in the [oct8](/oct8) folder.
 
