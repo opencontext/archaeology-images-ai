@@ -1,7 +1,10 @@
-# Cached files should not be in the repo.
+# Cached files and results should not be in the repo.
 files/
 results/
 
+# This gets installed at run-time so it should also
+# not go into the repo
+current_production/finetune-clip-huggingface
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
