@@ -1,4 +1,5 @@
 jupyter>=1.0.0
+llm>=0.11
 numpy
 openai-clip
 pandas>=1.3.4

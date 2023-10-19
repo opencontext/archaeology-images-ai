@@ -1,6 +1,6 @@
 # Cached files should not be in the repo.
 files/
-
+results/
 
 
 # Byte-compiled / optimized / DLL files
